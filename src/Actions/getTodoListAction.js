@@ -1,5 +1,11 @@
 import axios from "axios";
-import { GET_TASKS, DELETE_TASKS, ADD_TASKS,UPDATE_TASKS } from "../Constants/constantTypes";
+import {
+  GET_TASKS,
+  DELETE_TASKS,
+  ADD_TASKS,
+  UPDATE_TASKS,
+  GET_SINGLE_TASK,
+} from "../Constants/constantTypes";
 
 export const getTasks = () => async (dispatch) => {
   const { data } = await axios.get(`http://localhost:5000/task`);
@@ -21,7 +27,7 @@ export const deleteTask = (id) => async (dispatch) => {
 };
 
 export const addTask = (name) => async (dispatch) => {
-  const data = await axios.post(`http://localhost:5000/task/`, { name });
+  const data = await axios.post(`http://localhost:5000/task/`, name);
   console.log(data);
   dispatch({
     type: ADD_TASKS,
@@ -29,12 +35,20 @@ export const addTask = (name) => async (dispatch) => {
   });
 };
 
-export const updateTask = (id) => async (dispatch) => {
-  const {data} = await axios.put(`http://localhost:5000/task/${id}`, {id});
+export const getSingleTask = (id) => async (dispatch) => {
+  const { data } = await axios.get(`http://localhost:5000/task/${id}`);
+
+  dispatch({
+    type: GET_SINGLE_TASK,
+    payload: data,
+  });
+};
+
+export const updateTask = (id, newUpdate) => async (dispatch) => {
+  const { data } = await axios.put(`http://localhost:5000/task/${id}`, newUpdate);
   console.log(data);
   dispatch({
     type: UPDATE_TASKS,
     payload: data,
   });
 };
-

@@ -7,7 +7,6 @@ import Success from "../Loader/Succsess";
 
 const InputForm = () => {
   const [name, setName] = useState("");
-  const [complete] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -16,8 +15,13 @@ const InputForm = () => {
 
   const submitHandler = () => {
     // e.preventDefault()
-    dispatch(addTask(name, complete));
-    console.log(name, complete);
+    const data = {
+      name,
+      status : 'Incomplete'
+    }
+    dispatch(addTask(data));
+    console.log(data);
+    
   };
 
   return (

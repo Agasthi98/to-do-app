@@ -1,4 +1,10 @@
-import { GET_TASKS, DELETE_TASKS, ADD_TASKS,UPDATE_TASKS } from "../Constants/constantTypes";
+import {
+  GET_TASKS,
+  DELETE_TASKS,
+  ADD_TASKS,
+  UPDATE_TASKS,
+  GET_SINGLE_TASK,
+} from "../Constants/constantTypes";
 
 export const todoReducer = (state = { tasks: [] }, action) => {
   switch (action.type) {
@@ -12,41 +18,52 @@ export const todoReducer = (state = { tasks: [] }, action) => {
   }
 };
 
-
-export const deleteReducer = (state= {}, action) => {
-  switch (action.type){
+export const deleteReducer = (state = {}, action) => {
+  switch (action.type) {
     case DELETE_TASKS:
       return {
         success: true,
         loading: false,
       };
-      default:
-        return state;
+    default:
+      return state;
   }
-}
+};
 
-export const addTaskReducer = (state= {}, action) => {
-  switch (action.type){
+export const addTaskReducer = (state = {}, action) => {
+  switch (action.type) {
     case ADD_TASKS:
       return {
         success: true,
         loading: false,
       };
-      default:
-        return state;
+    default:
+      return state;
   }
-}
+};
 
+export const getTaskIdReducer = (state = { task: {} }, action) => {
+  switch (action.type) {
+    case GET_SINGLE_TASK:
+      return {
+        loading: false,
+        task: action.payload,
+      };
 
-export const updateTaskReducer = (state= {update:{}}, action) => {
-  switch (action.type){
+    default:
+      return state;
+  }
+};
+
+export const updateTaskReducer = (state = { update: {} }, action) => {
+  switch (action.type) {
     case UPDATE_TASKS:
       return {
         success: true,
         update: action.payload,
         loading: false,
       };
-      default:
-        return state;
+    default:
+      return state;
   }
-}
+};
