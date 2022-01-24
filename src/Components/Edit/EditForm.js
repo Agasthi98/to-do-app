@@ -44,6 +44,7 @@ const EditForm = (match) => {
             type="text"
             value={id}
             onChange={(e) => setId(e.target.value)}
+            readOnly
           />
           <br />
           <Form.Label>Task Name</Form.Label>
