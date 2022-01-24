@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Modal } from "react-bootstrap";
+import { Modal, Button, Form, Dropdown } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { getSingleTask, updateTask } from "../../Actions/getTodoListAction";
 
@@ -25,56 +25,62 @@ const EditForm = (match) => {
       status,
     };
     dispatch(updateTask(taskID, newUpdate));
+    alert('Updated')
+    window.location.replace('/')
   };
 
   const { onHide } = match;
   return (
-    <div className="updateTask">
-      <div className="updateTask-header">
+    <>
+    <div className="edit-form" >
+      <Modal.Dialog>
         <Modal.Header>
-          <Modal.Title>Update Task</Modal.Title>
+          <Modal.Title>Task Details</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="px-4">
-          <div className="addlist">
-            <div className="row">
-              <div className="inputtodoname">
-                <input
-                  type="text"
-                  disabled
-                  value={id}
-                  onChange={(e) => setId(e.target.value)}
-                />
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-                <select
-                  value={status}
-                  onChange={(e) => setStatus(e.target.value)}
-                >
-                  <option id="Incomplete">Incomplete</option>
-                  <option id="Completed">Completed</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <button className="btn-update" onClick={onSubmit}>
-            Update
-          </button>
+
+        <Modal.Body>
+        <Form.Label>ID</Form.Label>
+          <Form.Control
+            type="text"
+            value={id}
+            onChange={(e) => setId(e.target.value)}
+          />
+          <br />
+          <Form.Label>Task Name</Form.Label>
+          <Form.Control
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <br />
+          <Form.Label>Status</Form.Label>
+          <Form.Group controlId="type">
+            <Form value={status} onChange={(e) => setStatus(e.target.value)}>
+              <select style={{width:'100%'}}>
+              <option value="">Select </option>
+                <option value="Complete">Complete </option>
+                <option value="Incmplete">Incmplete </option>
+              </select>
+            </Form>
+          </Form.Group>
         </Modal.Body>
+
         <Modal.Footer>
-          <button
-            className="btn btn-close"
+          <Button
+            variant="secondary"
             onClick={() => {
               onHide();
             }}
           >
             Close
-          </button>
+          </Button>
+          <Button variant="primary" onClick={onSubmit}>
+            Save changes
+          </Button>
         </Modal.Footer>
+      </Modal.Dialog>
       </div>
-    </div>
+    </>
   );
 };
 
